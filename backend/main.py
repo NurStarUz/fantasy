@@ -1,15 +1,14 @@
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
-from models import Player, UserTeam, TeamPlayer, PointsLog
-from database import Base, engine, get_db
+from backend.models import Player, UserTeam, TeamPlayer, PointsLog
+from backend.database import Base, engine, get_db
 from typing import List
 from pydantic import BaseModel
 from datetime import datetime
 import pytz
-from config import Config
-from scheduled_tasks import init_scheduler
-
+from backend.config import Config
+from backend.scheduled_tasks import init_scheduler
 app = FastAPI()
 
 # Initialize database
