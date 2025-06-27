@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from schemas import TransferBase
-from models import Transfer
+from ..schemas import TransferBase
+from ..models import Transfer
 from datetime import date
-from database import SessionLocal
+from ..database import SessionLocal
 
 router = APIRouter(prefix="/transfers", tags=["Transfers"])
 
