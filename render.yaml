@@ -18,7 +18,8 @@ services:
 
   - type: web
     name: fantasy-frontend
-    env: static
+    env: node          # 🟢 static o‘rniga node
     buildCommand: "npm install && npm run build"
-    staticPublishPath: "dist"
+    startCommand: "npm run start"   # 🟢 kerak bo‘lsa, yoki serve orqali static chiqarsa
+    rootDir: frontend   # 🟢 frontend papkaga kiring
     autoDeploy: true
