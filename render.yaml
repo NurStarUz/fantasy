@@ -25,3 +25,4 @@ services:
       - key: VITE_BACKEND_URL
         value: https://fantasy-backend-eruk.onrender.com
     autoDeploy: true
+
