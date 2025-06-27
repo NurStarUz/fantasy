@@ -3,28 +3,25 @@ services:
     name: fantasy-backend
     env: python
     plan: free
-    buildCommand: "pip install -r requirements.txt"
+    buildCommand: "pip install -r backend/requirements.txt"
     startCommand: "uvicorn backend.main:app --host 0.0.0.0 --port 10000"
     envVars:
       - key: DATABASE_URL
-        value: "sqlite:///./fantasy.db"
+        value: sqlite:///./backend/fantasy.db
       - key: FOOTBALL_API_TOKEN
-        value: "bbb143c3e3834132934ccf14fa9343ea"
+        value: bbb143c3e3834132934ccf14fa9343ea
       - key: TG_BOT_TOKEN
-        value: "7810185081:AAHX-vIcHd8_2kwlEUoq6_BBpeQ5cTLWMGM"
+        value: 7810185081:AAHX-vIcHd8_2kwlEUoq6_BBpeQ5cTLWMGM
       - key: FRONTEND_ORIGIN
-        value: "https://fantasy-frontend.onrender.com"
+        value: https://fantasy-frontend-cut2.onrender.com
     autoDeploy: true
 
   - type: web
     name: fantasy-frontend
-    env: node
-    rootDir: frontend        # 🟢 BU QATOR juda muhim!
-    buildCommand: "npm install && npm run build"
-    startCommand: "npx serve -s dist"
+    env: static
+    buildCommand: "cd frontend && npm install && npm run build"
+    staticPublishPath: frontend/dist
+    envVars:
+      - key: VITE_BACKEND_URL
+        value: https://fantasy-backend-eruk.onrender.com
     autoDeploy: true
-
-    buildCommand: "npm install && npm run build"
-    startCommand: "npx serve -s dist"
-    autoDeploy: true
-
