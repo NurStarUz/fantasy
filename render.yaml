@@ -7,13 +7,13 @@ services:
     startCommand: "uvicorn main:app --host 0.0.0.0 --port 10000"
     envVars:
       - key: DATABASE_URL
-        fromEnv: DATABASE_URL
+        value: sqlite:///./fantasy.db
       - key: FOOTBALL_API_TOKEN
-        fromEnv: FOOTBALL_API_TOKEN
+        value: bbb143c3e3834132934ccf14fa9343ea
       - key: TG_BOT_TOKEN
-        fromEnv: TG_BOT_TOKEN
+        value: 7810185081:AAHX-vIcHd8_2kwlEUoq6_BBpeQ5cTLWMGM
       - key: FRONTEND_ORIGIN
-        fromEnv: FRONTEND_ORIGIN
+        value: https://fantasy-frontend.onrender.com
     autoDeploy: true
 
   - type: web
