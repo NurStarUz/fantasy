@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: fantasy-backend
+    env: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn main:app --host 0.0.0.0 --port 10000"
+    envVars:
+      - key: DATABASE_URL
+        fromEnv: DATABASE_URL
+      - key: FOOTBALL_API_TOKEN
+        fromEnv: FOOTBALL_API_TOKEN
+      - key: TG_BOT_TOKEN
+        fromEnv: TG_BOT_TOKEN
+      - key: FRONTEND_ORIGIN
+        fromEnv: FRONTEND_ORIGIN
+    autoDeploy: true
+
+  - type: web
+    name: fantasy-frontend
+    env: static
+    plan: free
+    buildCommand: "npm install && npm run build"
+    staticPublishPath: "dist"
+    autoDeploy: true
