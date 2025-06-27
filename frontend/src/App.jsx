@@ -1,40 +1,31 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
-const BACKEND_URL = 'https://fantasy-backend.onrender.com' // o‘zingizning backend URL'ingiz
+const BACKEND_URL = 'https://fantasy-backend.onrender.com'
 
 function App() {
   const [user, setUser] = useState(null)
   const [team, setTeam] = useState([])
   const [points, setPoints] = useState(null)
-  const [loading, setLoading] = useState(true)
 
+  // 👉 Bu yerda Telegram log chiqarish
   useEffect(() => {
-    // Telegram WebApp mavjudmi (Telegram ilovasidan ochilganmi)
-    if (window.Telegram?.WebApp) {
-      const tgUser = window.Telegram.WebApp.initDataUnsafe.user
+    console.log('Telegram WebApp:', window.Telegram?.WebApp)
+    console.log('initDataUnsafe:', window.Telegram?.WebApp?.initDataUnsafe)
+    
+    const tg = window.Telegram?.WebApp
+    const tgUser = tg?.initDataUnsafe?.user
 
-      if (tgUser) {
-        const newUser = {
-          telegram_id: tgUser.id.toString(),
-          full_name: tgUser.first_name + ' ' + (tgUser.last_name || ''),
-          avatar: tgUser.photo_url,
-        }
-
-        axios.post(`${BACKEND_URL}/users`, newUser)
-          .then(res => {
-            setUser(res.data)
-            loadTeam(res.data.id)
-          })
-          .catch(err => {
-            console.error("Foydalanuvchini yaratishda xatolik:", err)
-            setLoading(false)
-          })
-      } else {
-        setLoading(false)
+    if (tgUser) {
+      const newUser = {
+        telegram_id: tgUser.id.toString(),
+        full_name: tgUser.first_name + ' ' + (tgUser.last_name || ''),
+        avatar: tgUser.photo_url,
       }
-    } else {
-      setLoading(false)
+      axios.post(`${BACKEND_URL}/users`, newUser).then(res => {
+        setUser(res.data)
+        loadTeam(res.data.id)
+      })
     }
   }, [])
 
@@ -44,29 +35,8 @@ function App() {
       setTeam(teamRes.data.details)
       setPoints(teamRes.data.total_points)
     } catch (err) {
-      console.error('Jamoani yuklashda xatolik:', err)
-    } finally {
-      setLoading(false)
+      console.error('Team load error:', err)
     }
-  }
-
-  // Telegram WebApp mavjud emas (brauzerda ochilgan)
-  if (!window.Telegram?.WebApp) {
-    return (
-      <div className="min-h-screen bg-gray-900 text-white p-5">
-        <h1 className="text-2xl font-bold">❗ Diqqat</h1>
-        <p>Iltimos, ushbu botni Telegram ilovasi ichida oching:</p>
-        <p className="mt-2 text-blue-400 break-all">https://t.me/noorempirebot?startapp</p>
-      </div>
-    )
-  }
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
-        <p className="text-xl animate-pulse">⏳ Yuklanmoqda...</p>
-      </div>
-    )
   }
 
   return (
@@ -86,21 +56,17 @@ function App() {
         </div>
       )}
 
-      {team.length > 0 ? (
-        <div className="grid grid-cols-1 gap-2">
-          {team.map(player => (
-            <div key={player.player_id} className="bg-gray-800 p-3 rounded shadow">
-              <p><strong>ID:</strong> {player.player_id}</p>
-              <p>⚽ Gollar: {player.goals}, 🎯 Assist: {player.assists}</p>
-              <p>🧤 Clean Sheet: {player.clean_sheet}</p>
-              <p>🟨: {player.yellow_cards}, 🟥: {player.red_cards}</p>
-              <p>🔢 Ballar: <strong>{player.points}</strong></p>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p className="text-gray-400">Hali jamoa ma'lumotlari mavjud emas.</p>
-      )}
+      <div className="grid grid-cols-1 gap-2">
+        {team.map(player => (
+          <div key={player.player_id} className="bg-gray-800 p-3 rounded shadow">
+            <p><strong>ID:</strong> {player.player_id}</p>
+            <p>⚽ Gollar: {player.goals}, 🎯 Assist: {player.assists}</p>
+            <p>🧤 Clean Sheet: {player.clean_sheet}</p>
+            <p>🟨: {player.yellow_cards}, 🟥: {player.red_cards}</p>
+            <p>🔢 Ballar: <strong>{player.points}</strong></p>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
