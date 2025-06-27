@@ -19,7 +19,11 @@ services:
   - type: web
     name: fantasy-frontend
     env: node
-    rootDir: frontend        # 🟢 MAJBURIY
+    rootDir: frontend        # 🟢 BU QATOR juda muhim!
+    buildCommand: "npm install && npm run build"
+    startCommand: "npx serve -s dist"
+    autoDeploy: true
+
     buildCommand: "npm install && npm run build"
     startCommand: "npx serve -s dist"
     autoDeploy: true
