@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
-const BACKEND_URL = 'https://fantasy-backend.onrender.com' // o‘zingizning URL
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
 function App() {
   const [user, setUser] = useState(null)
