@@ -19,7 +19,7 @@ services:
   - type: web
     name: fantasy-frontend
     env: node
-    rootDir: frontend           # 🟢 MUHIM: package.json shu papkada bo‘lishi kerak
+    rootDir: frontend     # 🟢 BU QATOR MAJBURIY!
     buildCommand: "npm install && npm run build"
     startCommand: "npx serve -s dist"
     autoDeploy: true
