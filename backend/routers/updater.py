@@ -2,8 +2,8 @@ from fastapi import APIRouter
 import httpx
 import os
 from datetime import date
-from database import SessionLocal
-from models import PlayerPoints
+from ..database import SessionLocal
+from ..models import PlayerPoints
 
 router = APIRouter(prefix="/update", tags=["Update"])
 
