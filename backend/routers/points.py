@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from models import PlayerPoints, Team
-from database import SessionLocal
+from ..models import PlayerPoints, Team
+from ..database import SessionLocal
 from datetime import date
 
 router = APIRouter(prefix="/points", tags=["Points"])
