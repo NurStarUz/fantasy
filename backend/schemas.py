@@ -22,4 +22,4 @@ class PlayerPoint(BaseModel):
     clean_sheet: int
     yellow_cards: int
     red_cards: int
-    total_points: int
+    total_points: int  # Bu yerda muammo yo'q
