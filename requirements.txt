@@ -1,1 +1,9 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+pydantic
+httpx
+python-dotenv
+psycopg2-binary  # agar PostgreSQL ishlatilsa
+aiofiles          # render.com loglar uchun kerak bo'lishi mumkin
 
